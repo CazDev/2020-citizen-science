@@ -50,7 +50,7 @@ def get_observation(model, id):
         return HTTPError(404, 'Observation not found')
     else:
         return obs
-
+ 
 @app.post('/api/observations')
 def create_observation(model):
     """Handle POST to create new observation"""

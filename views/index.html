@@ -24,18 +24,168 @@
       </nav>
     </header>
 
-    <div id="content">
-
       <div id="heading">
           
           <hgroup>
               <h1>Citizen Science</h1>
               <h2>Understanding Our Trees</h2>
           </hgroup>
-      
-          <div id="target"></div>
+          <p>Although you may think that most Australian trees are Eucalypts, in fact there
+            are a wide variety of species native to this continent. The goal of this project
+            is to help understand the diversity of the population of trees and their
+            distribution across Australia. Citizen Scientists can help by recording observations
+            of trees via the website.
+          </p>
+          <figure>
+            <img src="/static/images/tree.png" alt="A Tree">
+            <figcaption>A Magnificent Tree 
+              <span class="attribution">(Source: <a href="https://arbordayblog.org/landscapedesign/12-fast-growing-shade-trees/">Arbordayblog.org</a>)</span>
+            </figcaption>
+          </figure>
 
       </div>
+
+      <div id="whatis">
+        <h2>What is Citizen Science?</h2>
+
+        <p>Citizen science involves public participation and collaboration 
+        in scientific research with the aim to increase scientific knowledge. 
+        It’s a great way to harness community skills and passion to fuel the 
+        capacity of science to answer our questions about the world and how it 
+        works. Have a look at our 
+        <a href="https://citizenscience.org.au/10-principles-of-citizen-science/">10 
+        Principles of Citizen Science</a> to find out more.</p>
+
+        <p>To be involved in citizen science you don’t need a science degree. 
+        Citizen scientists work with scientists or the scientific framework 
+        to achieve scientific goals.</p>
+
+        <p class="attribution">Text from <a href="https://citizenscience.org.au/who-we-are/">citizenscience.org.au</a></p>
+
+    </div>
+
+    <div id="submit-observation">
+      <h2>Enter your observation</h2>
+      
+      <form id="observation-form" action="/register" method="POST">
+
+        <h3>General</h3>
+        </br>
+
+        <div class="form-input">
+          <label for="participant-input">Participant</label>
+          <input type="text" name="participant" id="participant-input" placeholder="e.g. 1">
+        </div>
+
+        <div class="form-input">
+          <label for="location-input">Location</label>
+          <input type="text" name="location" id="location-input" placeholder="e.g. Epping">
+        </div>
+
+        <div class="form-input">
+          <label for="temperature-input">Temperature</label>
+          <input type="number" name="temperature" id="temperature-input" placeholder="e.g. 2">
+        </div>
+
+        <div class="form-input">
+          <label for="wind-input">Wind</label>
+          <select id="wind" name="wind">
+            <option value="none">None</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="strong">Strong</option>
+          </select>
+        </div>
+
+      </br>
+      <h3>About the tree</h3>
+      </br>
+
+        <div class="form-input">
+          <label for="tree-height-input">Tree Height</label>
+          <input type="number" name="tree-height" id="tree-height-input" placeholder="e.g. 3">
+        </div>
+
+        <div class="form-input">
+          <label for="tree-girth-input">Tree Girth at Base</label>
+          <input type="number" name="tree-girth" id="tree-girth-input" placeholder="e.g. 4">
+        </div>
+
+        <div class="form-input">
+          <label for="wind-input">Wind</label>
+          <select id="wind" name="wind">
+            <option value="none">None</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="strong">Strong</option>
+          </select>
+        </div>
+
+        <div class="form-input">
+          <label for="leaf-size-input">Leaf Size</label>
+          <select id="leaf-size" name="leaf-size">
+            <option value="rounded">Rounded</option>
+            <option value="pointy">Pointy</option>
+            <option value="divided">Divided</option>
+          </select>
+        </div>
+
+        <div class="leaf-shape-input">
+          <label for="leaf-shape-input">Leaf Shape</label>
+          <select id="leaf-shape" name="leaf-shape">
+            <option value="none">None</option>
+            <option value="light">Light</option>
+            <option value="medium">Medium</option>
+            <option value="strong">Strong</option>
+          </select>
+        </div>
+
+        <div class="form-input">
+          <label for="bark-texture-input">Bark Texture</label>
+          <select id="bark-texture" name="bark-texture">
+            <option value="smooth">Smooth</option>
+            <option value="peeling">Peeling</option>
+            <option value="furry">Furry</option>
+            <option value="crinkles">Crinkles</option>
+            <option value="spotty">Spotty</option>
+          </select>
+        </div>
+        
+      </br>
+        <div class="form-submit">
+            <input type="submit" value="Submit">
+        </div>
+      </form>
+    </div>
+
+    <div id="observations">
+      <h2>Recent Observations</h2>
+      <ul id="recent-observations-list">
+      </ul>
+    </div>
+
+    <div id="observation">
+      <h2>Observation</h2>
+      <ul id="observation-list">
+      </ul>
+    </div>
+
+    <div id="users">
+      <h2>Users</h2>
+      <ul id="users-list">
+      </ul>
+    </div>
+
+    <div id="user">
+      <div id="user-list">
+      </div>
+    </div>
+
+    <div id="user-observation">
+      <div id="user-observation-list">
+      </div>
+    </div>
+
     </div>
 
   <footer>
@@ -59,6 +209,38 @@
 
 
   <!-- Templates -->
+  <script id="users-template" type="text/x-handlebars-template">
+      {{#each users}}
+        <li> <a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
+      {{/each}}
+  </script>
+
+  <script id="observations-template" type="text/x-handlebars-template">
+    {{#each observations}}
+      <li> <a href="/#!/observations/{{id}}">{{location}} - {{weather}}</a></li>
+    {{/each}}
+  </script>
+
+  <script id="user-template" type="text/x-handlebars-template">
+    <h2>User: {{first_name}} {{last_name}}</h2>
+    <h3> Email: <a href="mailto:{{email}}">{{email}}</a> </h3>
+    <img src="{{avatar}}" alt="avatar">
+  </script>
+
+  <script id="observation-template" type="text/x-handlebars-template">
+      <p> Participant: {{participant}} </p>
+      <p> Timestamp: {{timestamp}} </p>
+      <p> Temperature: {{temperature}} degrees </p>
+      <p> Weather: {{weather}} </p>
+      <p> Wind: {{wind}} </p>
+      <p> Location: {{location}} </p>
+      <p> Height: {{height}} </p>
+      <p> Girth: {{girth}} </p>
+      <p> Leaf size: {{leaf_size}} </p>
+      <p> Leaf shape: {{leaf_shape}} </p>
+      <p> Bark colour: {{bark_colour}} </p>
+      <p> Bark texture: {{bark_texture}} </p>
+  </script>
 
   </body>
 </html>

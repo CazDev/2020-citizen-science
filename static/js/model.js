@@ -25,16 +25,18 @@ const Model = {
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
     update_users: function() {
-        fetch(this.users_url) // how does this not work??
+        fetch(this.users_url) //done
         .then(
             function(response) {
                 return response.json();
             }
         )
         .then(
-            (data) => {
-                this.data.users = data;
-                let event = new CustomEvent("modelUpdated");
+            (serverData) => {
+                this.data.users = serverData;
+                let event = new CustomEvent("modelUpdated", {
+                    detail: Model
+                });
                 window.dispatchEvent(event);
             }
         );
@@ -44,17 +46,19 @@ const Model = {
     //   from the server API
     // when the request is resolved, creates a "modelUpdated" event 
     // with the model as the event detail
-    update_observations: function() {
-        fetch(this.observations_url) // how does this not work??
+    update_observations: function() { //done
+        fetch(this.observations_url)
         .then(
             function(response) {
                 return response.json();
             }
         )
         .then(
-            (data) => {
-                this.data.observations = data;
-                let event = new CustomEvent("modelUpdated");
+            (serverData) => {
+                this.data.observations = serverData;
+                let event = new CustomEvent("modelUpdated", {
+                    detail: Model
+                });
                 window.dispatchEvent(event);
             }
         );
@@ -84,22 +88,54 @@ const Model = {
     //   data contains all fields in the observation object
     // when the request is resolved, creates an "observationAdded" event
     //  with the response from the server as the detail
-    add_observation: function(data) {
-        //todo
+    add_observation: function(data) { //done
+        JSON.stringify(data);
+
+        fetch(this.observations_url,
+        {
+            method: "POST",
+            body: data
+        })
+        .then(function(response){ 
+            return response.json(); 
+        })
+        .then(function(data){ 
+            let event = new CustomEvent("observationAdded", {
+                detail: data
+            });
+            window.dispatchEvent(event);
+        })
     },
 
     // get_user_observations - return just the observations for
     //   one user as an array
     get_user_observations: function(userid) {
         //todo
-        return this.data.users.indexOf(this.data.observations);
+        //return this.data.users.indexOf(this.data.observations);
         //return this.data.observations.find(observation => observation.participant == userid);
+        var data = this.data.observations;
+        var newData = new Array();
+        if (data.some(observation => observation.participant == userid)){
+            data.forEach(function (observation) {
+                var x = observation;
+                if (observation.participant == userid) {
+                    newData.push(observation);
+                }
+            });
+            newData.sort((x, y) => new Date(y.timestamp) - new Date(x.timestamp));;
+            return newData;
+        }
+        else {
+            return newData;
+        }
     },
 
     // get_recent_observations - return the N most recent
     //  observations, ordered by timestamp, most recent first
-    get_recent_observations: function(N) {
-        //todo
+    get_recent_observations: function(N) { //done
+        var data = this.data.observations.sort((x, y) => new Date(y.timestamp) - new Date(x.timestamp));
+        data = data.slice(0, N);
+        return data;
     },
 
     /* 
