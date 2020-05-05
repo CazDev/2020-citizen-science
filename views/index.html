@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Citizen Science</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="/static/css/style.css" type="text/css">
 
     <!-- Include Handlebars from a CDN -->
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="/static/js/main.js" type=module defer></script>
+    <script src="/static/js/form.js" type=module defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.slim.min.js" type=module defer></script>
   </head>
   <body>
+    
+    <div id="wrapper">
 
     <header>
-      <div id="logo"></div>
       <nav>
           <ul>
               <li><a href="#">Home</a></li>
@@ -67,89 +70,77 @@
     <div id="submit-observation">
       <h2>Enter your observation</h2>
       
-      <form id="observation-form" action="/register" method="POST">
+      <form id="observation-form" method="POST">
 
         <h3>General</h3>
         </br>
 
-        <div class="form-input">
           <label for="participant-input">Participant</label>
           <input type="text" name="participant" id="participant-input" placeholder="e.g. 1">
-        </div>
 
-        <div class="form-input">
           <label for="location-input">Location</label>
           <input type="text" name="location" id="location-input" placeholder="e.g. Epping">
-        </div>
 
-        <div class="form-input">
           <label for="temperature-input">Temperature</label>
           <input type="number" name="temperature" id="temperature-input" placeholder="e.g. 2">
-        </div>
 
-        <div class="form-input">
+          <label for="weather-input">Weather</label>
+          <select id="weather-input" name="weather">
+            <option value="fine">Fine</option>
+            <option value="raining">Raining</option>
+            <option value="stormy">Stormy</option>
+            <option value="sunny">Sunny</option>
+          </select>
+
           <label for="wind-input">Wind</label>
-          <select id="wind" name="wind">
+          <select id="wind-input" name="wind">
             <option value="none">None</option>
             <option value="light">Light</option>
             <option value="medium">Medium</option>
             <option value="strong">Strong</option>
           </select>
-        </div>
 
       </br>
       <h3>About the tree</h3>
       </br>
 
-        <div class="form-input">
           <label for="tree-height-input">Tree Height</label>
-          <input type="number" name="tree-height" id="tree-height-input" placeholder="e.g. 3">
-        </div>
+          <input type="number" name="height" id="tree-height-input" placeholder="e.g. 3">
 
-        <div class="form-input">
           <label for="tree-girth-input">Tree Girth at Base</label>
-          <input type="number" name="tree-girth" id="tree-girth-input" placeholder="e.g. 4">
-        </div>
+          <input type="number" name="girth" id="tree-girth-input" placeholder="e.g. 4">
 
-        <div class="form-input">
-          <label for="wind-input">Wind</label>
-          <select id="wind" name="wind">
-            <option value="none">None</option>
-            <option value="light">Light</option>
-            <option value="medium">Medium</option>
-            <option value="strong">Strong</option>
-          </select>
-        </div>
-
-        <div class="form-input">
           <label for="leaf-size-input">Leaf Size</label>
-          <select id="leaf-size" name="leaf-size">
+          <select id="leaf-size" name="leaf_size">
+            <option value="small">Small</option>
+            <option value="medium">Medium</option>
+            <option value="large">Large</option>
+          </select>
+
+          <label for="leaf-shape-input">Leaf Shape</label>
+          <select id="leaf-shape" name="leaf_shape">
             <option value="rounded">Rounded</option>
             <option value="pointy">Pointy</option>
             <option value="divided">Divided</option>
+            <option value="large">Large</option>
           </select>
-        </div>
 
-        <div class="leaf-shape-input">
-          <label for="leaf-shape-input">Leaf Shape</label>
-          <select id="leaf-shape" name="leaf-shape">
-            <option value="none">None</option>
-            <option value="light">Light</option>
-            <option value="medium">Medium</option>
-            <option value="strong">Strong</option>
+          <label for="bark-colour-input">Bark Colour</label>
+          <select id="bark-colour" name="bark_colour">
+            <option value="silver">Silver</option>
+            <option value="grey">Grey</option>
+            <option value="red">Red</option>
+            <option value="brown">Brown</option>
           </select>
-        </div>
 
-        <div class="form-input">
           <label for="bark-texture-input">Bark Texture</label>
-          <select id="bark-texture" name="bark-texture">
+          <select id="bark-texture" name="bark_texture">
             <option value="smooth">Smooth</option>
             <option value="peeling">Peeling</option>
             <option value="furry">Furry</option>
             <option value="crinkles">Crinkles</option>
             <option value="spotty">Spotty</option>
           </select>
-        </div>
         
       </br>
         <div class="form-submit">
@@ -181,9 +172,10 @@
       </div>
     </div>
 
-    <div id="user-observation">
-      <div id="user-observation-list">
-      </div>
+    <div id="user-observations">
+      <h2>User Observations</h2>
+      <ul id="user-observations-list">
+      </ul>
     </div>
 
     </div>
@@ -206,27 +198,33 @@
     
     <p id="copyright">All content and images subject to copyright &copy; COMP2110 Citizen Science 2020.</p>
   </footer>
-
+  
+  </div>
 
   <!-- Templates -->
+
+  <!-- View to display all users -->
   <script id="users-template" type="text/x-handlebars-template">
       {{#each users}}
         <li> <a href="/#!/users/{{id}}">{{first_name}} {{last_name}}</a></li>
       {{/each}}
   </script>
 
+  <!-- View to display all observations -->
   <script id="observations-template" type="text/x-handlebars-template">
     {{#each observations}}
       <li> <a href="/#!/observations/{{id}}">{{location}} - {{weather}}</a></li>
     {{/each}}
   </script>
 
+  <!-- View to display a user -->
   <script id="user-template" type="text/x-handlebars-template">
     <h2>User: {{first_name}} {{last_name}}</h2>
     <h3> Email: <a href="mailto:{{email}}">{{email}}</a> </h3>
     <img src="{{avatar}}" alt="avatar">
   </script>
 
+  <!-- View to display an observation -->
   <script id="observation-template" type="text/x-handlebars-template">
       <p> Participant: {{participant}} </p>
       <p> Timestamp: {{timestamp}} </p>
@@ -240,6 +238,13 @@
       <p> Leaf shape: {{leaf_shape}} </p>
       <p> Bark colour: {{bark_colour}} </p>
       <p> Bark texture: {{bark_texture}} </p>
+  </script>
+
+  <!-- View to display obervations belonging to a user -->
+  <script id="user-observations-template" type="text/x-handlebars-template">
+    {{#each observations}}
+      <li> <a href="/#!/observations/{{id}}">{{location}} - {{weather}}</a></li>
+    {{/each}}
   </script>
 
   </body>

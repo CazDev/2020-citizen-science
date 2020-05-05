@@ -16,6 +16,8 @@ usersView: function(targetid, users) {
     target.innerHTML = list;
 },
 
+// View to display all observations
+//   and insert it at `targetid` in the document
 observationsView: function(targetid, observations) {
     let target = document.getElementById(targetid);
     
@@ -28,6 +30,8 @@ observationsView: function(targetid, observations) {
     target.innerHTML = list;
 },
 
+// View to display an observation
+//   and insert it at `targetid` in the document
 observationView: function(targetid, observation) {
     let target = document.getElementById(targetid);
     
@@ -40,7 +44,9 @@ observationView: function(targetid, observation) {
     target.innerHTML = list;
 },
 
-userView: function(targetid, user) {
+// View to display a user
+//   and insert it at `targetid` in the document
+userView: function(targetid, user) { 
     let target = document.getElementById(targetid);
     
     let template = Handlebars.compile(
@@ -50,6 +56,21 @@ userView: function(targetid, user) {
     let list = template(user)
     
     target.innerHTML = list;
+},
+
+// View to display obervations belonging to a user
+//   and insert it at `targetid` in the document
+userObservationsView: function(targetid, observation) {
+    let target = document.getElementById(targetid);
+    
+    let template = Handlebars.compile(
+        document.getElementById("user-observations-template").textContent
+    );
+    
+    let list = template({'observations': observations})
+    
+    target.innerHTML = list;
 }
+
 }
 

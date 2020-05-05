@@ -88,20 +88,18 @@ const Model = {
     //   data contains all fields in the observation object
     // when the request is resolved, creates an "observationAdded" event
     //  with the response from the server as the detail
-    add_observation: function(data) { //done
-        JSON.stringify(data);
-
+    add_observation: function(formData) { //done
         fetch(this.observations_url,
         {
             method: "POST",
-            body: data
+            body: formData
         })
         .then(function(response){ 
             return response.json(); 
         })
-        .then(function(data){ 
+        .then(function(formData){ 
             let event = new CustomEvent("observationAdded", {
-                detail: data
+                detail: formData
             });
             window.dispatchEvent(event);
         })
@@ -117,7 +115,6 @@ const Model = {
         var newData = new Array();
         if (data.some(observation => observation.participant == userid)){
             data.forEach(function (observation) {
-                var x = observation;
                 if (observation.participant == userid) {
                     newData.push(observation);
                 }

@@ -50,7 +50,7 @@ def get_observation(model, id):
         return HTTPError(404, 'Observation not found')
     else:
         return obs
- 
+
 @app.post('/api/observations')
 def create_observation(model):
     """Handle POST to create new observation"""
@@ -64,7 +64,7 @@ def create_observation(model):
     # copy over form fields to data, don't worry about missing fields,
     # since add_observation will warn about them
     for field in fields:
-        if field in request.forms:
+        if field in request.forms and request.forms.get(field) != "":
             data[field] = request.forms.get(field)
 
     result = model.add_observation(data)
