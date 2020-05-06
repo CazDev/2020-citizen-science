@@ -1,4 +1,4 @@
-# COMP2110/6110 Starter Kit - Citizen Science Web Application
+# COMP2110 - Citizen Science Web Application
 
 This is the starter kit for the 2020 Web Application assignment. It contains a 
 Python based web server that provides a JSON API to the data required for
