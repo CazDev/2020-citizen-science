@@ -1,8 +1,9 @@
 import {Views} from './views.js';
 import {Model} from './model.js';
 import {split_hash} from './util.js';
+import {participantid}  from './form.js';;
 
-var hashid = 0; // VaLue to hold user IDs and observation IDs
+let hashid = 0; // VaLue to hold user IDs and observation IDs
 
 //Main redraw function to update the page display
 function redraw() { 
@@ -18,7 +19,8 @@ function redraw() {
     var form = document.getElementById("submit-observation");
     var userObservations = document.getElementById("user-observations");
 
-    whatis.style.display = "none"; // Hide all elements
+    
+    whatis.style.display = "none"; // Hide all elements before we st
     users.style.display = "none";
     observations.style.display = "none";
     user.style.display = "none";
@@ -55,7 +57,7 @@ function redraw() {
     }
 }
 
-window.onload = function() {
+window.onload = function() { // initial loading of page
     Model.update_observations(); // update api information
     Model.update_users();
 };
@@ -64,7 +66,7 @@ window.onhashchange = function() {
     Model.update_users();
 }
 
-window.addEventListener('modelUpdated', function (e) { // Apply views when model is updated
+window.addEventListener('modelUpdated', function (e) { // Apply views only when model is updated
     Views.usersView("users-list", Model.get_users());
     Views.observationsView("recent-observations-list", Model.get_observations());
     Views.userView("user-list", Model.get_user(hashid));
@@ -75,9 +77,6 @@ window.addEventListener('modelUpdated', function (e) { // Apply views when model
 }, false);
 
 window.addEventListener('observationAdded', function (e) {  // View observation when observation is added
-    console.log( "Observation added" );
-    window.location.hash = "#!/observations/" + Model.get_observations().length;
-    Views.observationView("observation-list", Model.get_observation(Model.get_observations().length));
-
-    redraw(); // after all views are updated then display page with redraw
+    Model.update_observations(); // update observations then change view
+    window.location.hash = "#!/users/" + participantid;
 }, false);

@@ -75,66 +75,66 @@
         <h3>General</h3>
         </br>
 
-          <label for="participant-input">Participant</label>
-          <input type="text" name="participant" id="participant-input" placeholder="e.g. 1">
+          <label for="participant_input">Participant</label>
+          <input type="text" name="participant" id="participant_input" placeholder="e.g. 1">
+          
+          <label for="temperature_input">Temperature</label>
+          <input type="number" name="temperature" id="temperature_input" placeholder="e.g. 25">
 
-          <label for="location-input">Location</label>
-          <input type="text" name="location" id="location-input" placeholder="e.g. Epping">
-
-          <label for="temperature-input">Temperature</label>
-          <input type="number" name="temperature" id="temperature-input" placeholder="e.g. 2">
-
-          <label for="weather-input">Weather</label>
-          <select id="weather-input" name="weather">
+          <label for="weather_input">Weather</label>
+          <select id="weather_input" name="weather">
             <option value="fine">Fine</option>
             <option value="raining">Raining</option>
             <option value="stormy">Stormy</option>
             <option value="sunny">Sunny</option>
           </select>
 
-          <label for="wind-input">Wind</label>
-          <select id="wind-input" name="wind">
+          <label for="wind_input">Wind</label>
+          <select id="wind_input" name="wind">
             <option value="none">None</option>
             <option value="light">Light</option>
             <option value="medium">Medium</option>
             <option value="strong">Strong</option>
           </select>
+          
+          <label for="location_input">Location</label>
+          <input type="text" name="location" id="location_input" placeholder="e.g. Epping">
 
       </br>
       <h3>About the tree</h3>
       </br>
 
-          <label for="tree-height-input">Tree Height</label>
-          <input type="number" name="height" id="tree-height-input" placeholder="e.g. 3">
+          <label for="height_input">Tree Height</label>
+          <input type="number" name="height" id="height_input" placeholder="e.g. 3">
 
-          <label for="tree-girth-input">Tree Girth at Base</label>
-          <input type="number" name="girth" id="tree-girth-input" placeholder="e.g. 4">
+          <label for="girth_input">Tree Girth at Base</label>
+          <input type="number" name="girth" id="girth_input" placeholder="e.g. 4" step=".01">
 
-          <label for="leaf-size-input">Leaf Size</label>
-          <select id="leaf-size" name="leaf_size">
+          <label for="leaf_size_input">Leaf Size</label>
+          <select id="leaf_size" name="leaf_size">
             <option value="small">Small</option>
             <option value="medium">Medium</option>
             <option value="large">Large</option>
           </select>
 
-          <label for="leaf-shape-input">Leaf Shape</label>
-          <select id="leaf-shape" name="leaf_shape">
+          <label for="leaf_shape_input">Leaf Shape</label>
+          <select id="leaf_shape" name="leaf_shape">
             <option value="rounded">Rounded</option>
             <option value="pointy">Pointy</option>
             <option value="divided">Divided</option>
             <option value="large">Large</option>
           </select>
 
-          <label for="bark-colour-input">Bark Colour</label>
-          <select id="bark-colour" name="bark_colour">
+          <label for="bark_colour_input">Bark Colour</label>
+          <select id="bark_colour" name="bark_colour">
             <option value="silver">Silver</option>
             <option value="grey">Grey</option>
             <option value="red">Red</option>
             <option value="brown">Brown</option>
           </select>
 
-          <label for="bark-texture-input">Bark Texture</label>
-          <select id="bark-texture" name="bark_texture">
+          <label for="bark_texture_input">Bark Texture</label>
+          <select id="bark_texture" name="bark_texture">
             <option value="smooth">Smooth</option>
             <option value="peeling">Peeling</option>
             <option value="furry">Furry</option>
@@ -146,25 +146,33 @@
         <div class="form-submit">
             <input type="submit" value="Submit">
         </div>
+        
+        </br>
+        
+        <div class="form-submit-error">
+              <div id="submit-error">
+              </div>
+        </div>
+        
       </form>
     </div>
 
     <div id="observations">
       <h2>Recent Observations</h2>
-      <ul id="recent-observations-list">
-      </ul>
+      <ol class="recent-observations-list" id="recent-observations-list">
+      </ol>
     </div>
 
     <div id="observation">
       <h2>Observation</h2>
-      <ul id="observation-list">
-      </ul>
+      <div id="observation-list">
+      </div>
     </div>
 
     <div id="users">
       <h2>Users</h2>
-      <ul id="users-list">
-      </ul>
+      <ol id="users-list">
+      </ol>
     </div>
 
     <div id="user">
@@ -174,8 +182,8 @@
 
     <div id="user-observations">
       <h2>User Observations</h2>
-      <ul id="user-observations-list">
-      </ul>
+      <ol id="user-observations-list">
+      </ol>
     </div>
 
     </div>
@@ -226,7 +234,7 @@
 
   <!-- View to display an observation -->
   <script id="observation-template" type="text/x-handlebars-template">
-      <p> Participant: {{participant}} </p>
+      <p> Participant: <a href="/#!/users/{{participant}}">{{participant}}</a> </p>
       <p> Timestamp: {{timestamp}} </p>
       <p> Temperature: {{temperature}} degrees </p>
       <p> Weather: {{weather}} </p>

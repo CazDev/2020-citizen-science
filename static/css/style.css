@@ -19,6 +19,17 @@
 /* -----  Main  ----- */
 /* ------------------ */
 
+#whatis, /* Ensure all elements start hidden */
+#users,
+#user,
+#observations,
+#observation,
+#heading,
+#submit-observation,
+#user-observations {
+    display: none;
+}
+
 body {
     color: rgb(220, 220, 220);
     background-color: rgb(30, 30, 30);
@@ -42,16 +53,25 @@ h1 {
   background-color: #71fde1
 }
 
-ul {
+ol {
 	  padding: 0;
     list-style-type: none;
-    margin-left: 30%;
-    margin-right: 30%;
+    margin-left: 20%;
+    margin-right: 20%;
+
+    -moz-column-count: 4;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 20px;
+    column-count: 4;
+    column-gap: 20px;
 }
 
-li {
-  display: inline-block;
-  margin-left: 20px;
+ul {
+  padding: 0;
+  list-style-type: none;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 img {
@@ -241,7 +261,16 @@ select option {
 
 .form-submit {
     display: inline-block;
-    padding-bottom: 32px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.form-submit-error {
+    display: inline-block;
+    text-align: center;
+    color: crimson;
+    font-weight: 300;
+    padding-bottom: 8px;
 }
 
 input[type=button], input[type=submit], input[type=reset] {

@@ -60,7 +60,7 @@ userView: function(targetid, user) {
 
 // View to display obervations belonging to a user
 //   and insert it at `targetid` in the document
-userObservationsView: function(targetid, observation) {
+userObservationsView: function(targetid, observations) {
     let target = document.getElementById(targetid);
     
     let template = Handlebars.compile(
