@@ -10,7 +10,7 @@ The `cypress` directory contains tests to be run with the [Cypress](https://cypr
 
 ## **Requirements**
 
-**RThis project requires Python 3**R
+**This project requires Python 3**
 The bottle library is also required but is already included
 
 ## **The API Server**
