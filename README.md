@@ -1,7 +1,9 @@
 # Citizen Science Web Application
 
-You can run the Python server with the command: **python main.py**
-
+You can run the Python server with the command: 
+```
+**python main.py**
+```
 The server will listen for requests on: [http://localhost:8010]
 
 The `cypress` directory contains tests to be run with the [Cypress](https://cypress.io) testing tool.
