@@ -2,7 +2,7 @@
 
 You can run the Python server with the command: 
 ```
-**python main.py**
+python main.py
 ```
 The server will listen for requests on: [http://localhost:8010]
 
