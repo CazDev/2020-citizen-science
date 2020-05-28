@@ -82,4 +82,12 @@ There will be six views in the application, these are outlined here. Each page h
 * **util.js**: Contains split_hash utility function to split hash and id
 * **views.js**: Each of the views used by html templates to generate html dynamically
 
-.
+## **Templates**
+
+HTML templates will dynamically generate HTML code.
+These templates include:
+* **user-observations-template**: View to display obervations belonging to a user
+* **observation-template**: View to display an observation
+* **user-template**: View to display a user
+* **observations-template**: View to display all observations
+* **users-template**: View to display all users
