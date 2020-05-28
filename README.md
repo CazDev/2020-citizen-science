@@ -4,9 +4,12 @@ You can run the Python server with the command:
 ```
 python main.py
 ```
-The server will listen for requests on: [http://localhost:8010]
+The server will listen for requests on: [localhost:8010](http://localhost:8010)
+
+## **Testing**
 
 The `cypress` directory contains tests to be run with the [Cypress](https://cypress.io) testing tool.
+These tests examine functionality and display of data on all dynamic web pages
 
 ## **Requirements**
 
